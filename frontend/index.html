@@ -5,12 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR.js with Three.js</title>
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
 </head>
 <body>
-    <div id="ar-container"></div>
-    <script src="node_modules/three/build/three.module.js"></script>
-    <script src="node_modules/ar.js/three.js/build/ar.js"></script>
-    <script src="main.js"></script>
-    <p>Hallo</p>
+
+<!-- Welcome, Container for Introduction -->
+<div class="welcome-container" id="welcomeScreen">
+    <h1>Welcome to 3D-Instagram</h1>
+    <p>Experience a new dimension of sharing and connecting in 3D!</p>
+    <button class="start-button" onclick="start3DExperience()">Enter 3D World</button>
+</div>
+
+<!-- A-Frame Scene (Initially Hidden) -->
+<a-scene id="aframeScene" style="display: none;">
+    <!-- Sky Background -->
+    <a-sky color="#FFC0CB"></a-sky>
+
+    <!-- Ground Plane -->
+    <a-plane color="#4b7597" width="20" height="20" rotation="-90 0 0" position="0 0 -5"></a-plane>
+
+    <!-- Floating Demo Pictures -->
+    <a-image src="https://as2.ftcdn.net/v2/jpg/00/71/38/29/1000_F_71382959_eYupFs1L5m21OYLXope4K9HXar7HQKsv.jpg" position="-1 1.7 -3" rotation="0 15 0" width="0.5" height="1.5"></a-image>
+    <a-image src="https://as2.ftcdn.net/v2/jpg/01/83/98/81/1000_F_183988193_ihuHiHc4ZFiYqL3H4qZkDRAAb9HfGVHp.jpg" position="1 1.7 -3" rotation="0 -15 0" width="0.5" height="1.5"></a-image>
+    <a-image src="https://as2.ftcdn.net/v2/jpg/00/49/14/31/1000_F_49143198_5HdyJHUqgkAkbOELEsre7oH1c9MwfOQb.jpg" position="0 1.5 -3" rotation="0 0 0" width="0.5" height="1.5"></a-image>
+
+    <!-- 3D Text -->
+    <a-text
+            value="Explore 3D-Instagram"
+            position="0 3 -4"
+            align="center"
+            color="#FF69B4"
+            scale="2 2 2">
+    </a-text>
+
+    <!-- Camera with Cursor for Interaction -->
+    <a-camera position="0 1.6 0">
+        <a-cursor color="#FF69B4"></a-cursor>
+    </a-camera>
+</a-scene>
+
 </body>
 </html>
