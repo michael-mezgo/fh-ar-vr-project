@@ -1,0 +1,40 @@
+name: AR-VR Background
+services:
+  mongo-container:
+    container_name: AR-VR_Database
+    image: mongodb/mongodb-community-server:latest
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    command: mongod
+  minio:
+    image: minio/minio:latest
+    container_name: picture_store
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - picture_data:/data
+    # ChatGPT help Entrypoint vs Command
+    # https://chatgpt.com/share/6706eb02-d150-800d-8684-c32ef17e2641
+    # https://chatgpt.com/share/6706ebef-cd20-800d-b2d2-caf7589e3499
+    entrypoint: >
+      /bin/sh -c "
+      minio server /data --console-address ':9001'&
+      sleep 10 && 
+      mc alias set local http://localhost:9000 minioadmin minioadmin123&&
+      mc admin user add local ktoruser MyStrongPassword123&&
+      mc admin policy attach local readwrite --user ktoruser&&
+      mc admin user svcacct add local ktoruser --access-key 'Zeq92ZKD0Zz71tone0r5' --secret-key 'uCbpoBP5nUQJKMim14VIT2ftDXCIN6bZ3u99oLZU'&
+      wait
+      "
+volumes:
+  picture_data:
+  mongo_data:
