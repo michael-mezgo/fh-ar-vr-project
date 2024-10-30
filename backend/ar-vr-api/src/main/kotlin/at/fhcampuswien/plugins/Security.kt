@@ -7,6 +7,7 @@ import io.ktor.server.sessions.*
 import kotlinx.serialization.*
 
 fun Application.configureSecurity() {
+    @Serializable
     data class MySession(val count: Int = 0)
     install(Sessions) {
         cookie<MySession>("MY_SESSION") {
