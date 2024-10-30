@@ -4,3 +4,7 @@ node_modules
 .idea/Project.iml
 .idea/vcs.xml
 dist
+.gitignore
+modules.xml
+Project.iml
+vcs.xml
