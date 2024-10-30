@@ -1,0 +1,14 @@
+name: AR-VR Frontend
+services:
+  nginx:
+    image: nginx:latest
+    ## Either use host network mode or uncomment the following line
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+      - ../dist:/var/www/html
+      # Uncomment the following line if you want to use password protection
+      # - ./auth:/etc/nginx/auth
+    restart: always
