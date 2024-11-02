@@ -1,9 +1,20 @@
+/* Style for Welcome Screen */
 body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
+}
+
+#aframeScene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent; /* Ensure background is transparent for AR */
+    z-index: 1;
 }
 
 .welcome-container {
