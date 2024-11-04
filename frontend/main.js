@@ -1,5 +1,3 @@
-let coordinatesText;
-
 function startExperience() {
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('aframeScene').style.display = 'block';
@@ -25,8 +23,8 @@ const imagesArray = [
     {
         src: "https://as2.ftcdn.net/v2/jpg/00/49/14/31/1000_F_49143198_5HdyJHUqgkAkbOELEsre7oH1c9MwfOQb.jpg",
         caption: "What a nice view!",
-        latitude: lat,
-        longitude: lon
+        latitude: 48.158263,
+        longitude: 16.381333
     }
 ];
 
@@ -46,34 +44,21 @@ function loadImages() {
         img.setAttribute("height", "7.5");
         img.setAttribute("look-at", "[gps-new-camera]");
 
-        imageEntity.appendChild(img);
-
         const offset = index * 10;
-        //imageEntity.setAttribute("position", `15, ${offset}, 0`);
-        imageEntity.object3D.position.set(lat + 0.00002, 0, 0);
+        img.object3D.position.set(offset, 0, 0);
 
+        imageEntity.appendChild(img);
 
         const text = document.createElement("a-text");
         text.setAttribute("value", imageData.caption);
-        text.setAttribute("position", `0 0 ${offset}`);
+        text.setAttribute("position", `0 -6 0`);
         text.setAttribute("color", "#FFF");
         text.setAttribute("align", "center");
         text.setAttribute("scale", "3 3 2");
         text.setAttribute("look-at", "[gps-new-camera]");
-        imageEntity.appendChild(text);
+        img.appendChild(text);
 
         scene.appendChild(imageEntity);
     });
+
 }
-
-window.onload = () => {
-    const camera = document.querySelector("[gps-new-camera]");
-    coordinatesText = document.getElementById("coordinates");
-
-    camera.addEventListener("gps-camera-update-position", (e) => {
-        const latitude = e.detail.position.latitude;
-        const longitude = e.detail.position.longitude;
-
-        coordinatesText.setAttribute("value", `Latitude: ${latitude.toFixed(4)}\nLongitude: ${longitude.toFixed(4)}`);
-    });
-};
