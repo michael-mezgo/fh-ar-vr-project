@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take and Upload a Picture</title>
+  <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+
+<a id="backButton" href="./index.html">⬅️ Back</a>
+
+<h1>Capture and Upload a Picture</h1>
+<h3>It will appear at this exact location</h3>
+
+<div id="cameraContainer">
+  <video id="cameraView" autoplay></video>
+  <img id="preview"/>
+</div>
+
+<button id="captureButton">Capture Photo</button>
+<button id="retakeButton" style="display: none;">Retake Photo</button>
+<button id="uploadButton" disabled>Upload Photo</button>
+
+<script src="upload.js"></script>
+
+</body>
+</html>
