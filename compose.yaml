@@ -1,7 +1,7 @@
 name: AR-VR-Full-Backend
 services:
   mongo-container:
-    container_name: MongoDB
+    container_name: ARMongoDB
     image: mongodb/mongodb-community-server:latest
     environment:
         # provide your credentials here
@@ -17,7 +17,7 @@ services:
         ipv4_address: 192.168.246.17
   minio:
     image: minio/minio:latest
-    container_name: minio
+    container_name: ARminio
     environment:
       - MINIO_ROOT_USER=minioadmin
       - MINIO_ROOT_PASSWORD=minioadmin123
@@ -35,7 +35,7 @@ services:
       mc alias set local http://localhost:9000 minioadmin minioadmin123&&
       mc admin user add local ktoruser MyStrongPassword123&&
       mc admin policy attach local readwrite --user ktoruser&&
-      mc admin user svcacct add local ktoruser --access-key 'myaccesskey' --secret-key 'mysecretkey'&
+      mc admin user svcacct add local ktoruser --access-key 'Zeq92ZKD0Zz71tone0r5' --secret-key 'uCbpoBP5nUQJKMim14VIT2ftDXCIN6bZ3u99oLZU'&
       wait
       "
     # ChatGPT help
@@ -49,8 +49,6 @@ services:
     container_name: ar-server
     ports:
      - "8080:8080"
-    volumes:
-    - ./deployment.settings:/.env
     entrypoint: >
       /bin/sh -c "
       sleep 15 &&
