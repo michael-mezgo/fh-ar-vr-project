@@ -1,10 +1,11 @@
 package at.fhcampuswien.plugins
 
+import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.sessions.*
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
+import kotlin.collections.set
 
 fun Application.configureSecurity() {
     @Serializable
@@ -14,11 +15,12 @@ fun Application.configureSecurity() {
             cookie.extensions["SameSite"] = "lax"
         }
     }
-    routing {
-        get("/session/increment") {
-            val session = call.sessions.get<MySession>() ?: MySession()
-            call.sessions.set(session.copy(count = session.count + 1))
-            call.respondText("Counter is ${session.count}. Refresh to increment.")
-        }
+    install(CORS) {
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Delete)
+        allowMethod(HttpMethod.Patch)
+        allowHeader(HttpHeaders.Authorization)
+        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 }
