@@ -6,6 +6,12 @@ const preview = document.getElementById("preview");
 let photoBlob = null;
 let currentLat = null;
 let currentLon = null;
+let uniqueDeviceId = localStorage.getItem("uniqueDeviceId");
+
+if (!uniqueDeviceId) {
+    uniqueDeviceId = crypto.randomUUID();
+    localStorage.setItem("uniqueDeviceId", uniqueDeviceId);
+}
 
 async function setupCamera() {
     try {
@@ -84,6 +90,7 @@ uploadButton.addEventListener("click", async () => {
         formData.append("photo", base64String);
         formData.append("latitude", currentLat);
         formData.append("longitude", currentLon);
+        formData.append("uniqueDeviceId", uniqueDeviceId);
 
         const response = await fetch("", {
             method: "POST",
