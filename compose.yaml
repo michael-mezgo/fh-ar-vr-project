@@ -48,7 +48,7 @@ services:
     image: ghcr.io/michael-mezgo/fh-ar-vr-project:latest
     container_name: ar-server
     ports:
-     - "8080:8080"
+     - "8083:8080"
     entrypoint: >
       /bin/sh -c "
       sleep 15 &&
