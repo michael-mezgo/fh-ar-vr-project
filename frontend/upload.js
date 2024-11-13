@@ -60,6 +60,16 @@ async function getCurrentLocation() {
     }
 }
 
+function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+}
 
 uploadButton.addEventListener("click", async () => {
     if (!photoBlob || currentLat === null || currentLon === null) {
@@ -67,12 +77,14 @@ uploadButton.addEventListener("click", async () => {
         return;
     }
 
-    const formData = new FormData();
-    formData.append("photo", photoBlob, "photo.jpg");
-    formData.append("latitude", currentLat);
-    formData.append("longitude", currentLon);
-
     try {
+        const base64String = await blobToBase64(photoBlob);
+
+        const formData = new FormData();
+        formData.append("photo", base64String);
+        formData.append("latitude", currentLat);
+        formData.append("longitude", currentLon);
+
         const response = await fetch("", {
             method: "POST",
             body: formData,
