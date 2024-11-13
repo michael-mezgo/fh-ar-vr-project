@@ -1,0 +1,27 @@
+# File is partly AI Generated
+# https://chatgpt.com/share/670547fd-212c-800d-aa67-2f49e204cd27
+name: Build and Push Docker image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Log in to GitHub Container Registry
+      run: echo "${{ secrets.GIT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Build Docker image
+      run: |
+        cd backend/ar-vr-api
+        docker build -t ghcr.io/jaw-kenndi/jaw-api:latest .
+
+    - name: Push Docker image to GitHub Packages
+      run: |
+        cd backend/ar-vr-api
+        docker push ghcr.io/michael-mezgo/fh-ar-vr-project:latest
