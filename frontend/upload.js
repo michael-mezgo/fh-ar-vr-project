@@ -1,4 +1,5 @@
 const cameraView = document.getElementById("cameraView");
+const backButton = document.getElementById("backButton");
 const captureButton = document.getElementById("captureButton");
 const uploadButton = document.getElementById("uploadButton");
 const retakeButton = document.getElementById("retakeButton");
@@ -28,7 +29,8 @@ captureButton.addEventListener("click", () => {
         preview.src = URL.createObjectURL(photoBlob);
         preview.style.display = "block";
         cameraView.style.display = "none";
-        uploadButton.disabled = false;
+        backButton.style.display = "none";
+        uploadButton.style.display = "inline";
         captureButton.style.display = "none";
         retakeButton.style.display = "inline";
     }, "image/jpeg");
@@ -38,9 +40,10 @@ captureButton.addEventListener("click", () => {
 retakeButton.addEventListener("click", () => {
     preview.style.display = "none";
     cameraView.style.display = "block";
+    backButton.style.display = "inline"
     captureButton.style.display = "inline";
     retakeButton.style.display = "none";
-    uploadButton.disabled = true;
+    uploadButton.style.display = "none"
     photoBlob = null;
 });
 

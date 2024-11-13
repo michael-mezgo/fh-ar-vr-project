@@ -8,19 +8,22 @@
 </head>
 <body>
 
-<a id="backButton" href="./index.html">⬅️ Back</a>
-
-<h1>Capture and Upload a Picture</h1>
-<h3>It will appear at this exact location</h3>
-
 <div id="cameraContainer">
+  <a id="backButton" href="./index.html">ⓧ</a>
+  <button id="retakeButton" style="display: none;">retake</button>
   <video id="cameraView" autoplay></video>
   <img id="preview"/>
 </div>
 
-<button id="captureButton">Capture Photo</button>
-<button id="retakeButton" style="display: none;">Retake Photo</button>
-<button id="uploadButton" disabled>Upload Photo</button>
+<div id="bottomContainer" class="wrapper">
+  <div></div>
+  <div>
+    <button id="captureButton">○</button>
+  </div>
+  <div>
+    <button id="uploadButton" style="display: none;">></button>
+  </div>
+</div>
 
 <script src="upload.js"></script>
 
