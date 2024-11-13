@@ -1,11 +1,11 @@
-package at.fhcampuswien.dto
+package at.fhcampuswien.data
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PictureUploadDto(
+data class PictureDatabaseEntry(
     val userUuid: String,
     val longitude: Double,
     val latitude: Double,
-    val picture: String
+    val pictureFileName: String
 )

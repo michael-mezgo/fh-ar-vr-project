@@ -1,17 +1,20 @@
 package at.fhcampuswien.data
 
+import at.fhcampuswien.ConfigParameters
 import at.fhcampuswien.dto.ImageData
 import at.fhcampuswien.dto.PictureUploadDto
+import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import io.minio.MinioClient
 import io.minio.PutObjectArgs
 import java.io.ByteArrayInputStream
 import java.util.*
 
 class PictureDataSourceImpl(
+    private val db: MongoDatabase
 ) : PictureDataSource {
     private val minioClient: MinioClient = MinioClient.builder()
-        .endpoint("http://127.0.0.1:9000")
-        .credentials("Zeq92ZKD0Zz71tone0r5", "uCbpoBP5nUQJKMim14VIT2ftDXCIN6bZ3u99oLZU")
+        .endpoint(ConfigParameters.Endpoint.value)
+        .credentials(ConfigParameters.AccessKey.value, ConfigParameters.SecretKey.value)
         .build()
 
     override suspend fun insertPicture(picture: PictureUploadDto) {
@@ -19,12 +22,16 @@ class PictureDataSourceImpl(
 
         // https://youtube.com/playlist?list=PLFOIsHSSYIK3Dd3Y_x7itJT1NUKT5SxDh&si=JQDBboSClHBrWWo5
         val args = PutObjectArgs.builder()
-            .bucket("instapicture")
+            .bucket(ConfigParameters.PictureBucket.value)
             .contentType(image.contentType)
             .`object`(image.fileName)
             .stream(ByteArrayInputStream(image.bytes), image.bytes.count().toLong(), -1)
             .build()
         minioClient.putObject(args)
+
+        db
+            .getCollection<PictureDatabaseEntry>(ConfigParameters.PictureBucket.value)
+            .insertOne(PictureDatabaseEntry(userUuid = picture.userUuid, longitude = picture.longitude, latitude = picture.latitude, pictureFileName = image.fileName))
     }
 
     private fun pictureBase64ToBytes(string: String, name: String) : ImageData {

@@ -1,15 +1,14 @@
 package at.fhcampuswien.routes
 
-import at.fhcampuswien.data.PictureDataSourceImpl
+import at.fhcampuswien.data.PictureDataSource
 import at.fhcampuswien.dto.PictureUploadDto
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 
-fun Routing.uploadPicture() {
+fun Routing.uploadPicture(dataSourceImpl: PictureDataSource) {
     post(path = "/uploadPicture") {
         val uploadDate = call.receive<PictureUploadDto>()
 
-        val dataSrc = PictureDataSourceImpl()
-        dataSrc.insertPicture(uploadDate)
+        dataSourceImpl.insertPicture(uploadDate)
     }
 }
