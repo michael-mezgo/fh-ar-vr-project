@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - ar_mongo_data:/data/db
     command: mongod
   minio:
     image: minio/minio:latest
@@ -21,7 +21,7 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - picture_data:/data
+      - ar_picture_data:/data
     # ChatGPT help Entrypoint vs Command
     # https://chatgpt.com/share/6706eb02-d150-800d-8684-c32ef17e2641
     # https://chatgpt.com/share/6706ebef-cd20-800d-b2d2-caf7589e3499
@@ -36,5 +36,5 @@ services:
       wait
       "
 volumes:
-  picture_data:
-  mongo_data:
+  ar_picture_data:
+  ar_mongo_data:
