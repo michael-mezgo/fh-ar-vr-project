@@ -10,7 +10,7 @@ services:
       - ./certs:/etc/nginx/certs
       - ../frontend/:/var/www/html
     networks:
-      - arvr_network:
+      arvr_network:
         ipv4_address: 192.168.246.280
   mongo-container:
     container_name: ARMongoDB
