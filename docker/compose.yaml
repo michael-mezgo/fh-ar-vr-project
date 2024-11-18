@@ -1,5 +1,17 @@
-name: AR-VR-Full-Backend
+name: AR-VR-Full
 services:
+  frontend-container:
+    container_name: ARfrontend
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+      - ../frontend/:/var/www/html
+    networks:
+      - arvr_network:
+        ipv4_address: 192.168.246.280
   mongo-container:
     container_name: ARMongoDB
     image: mongodb/mongodb-community-server:latest
@@ -47,8 +59,6 @@ services:
   server-app:
     image: ghcr.io/michael-mezgo/fh-ar-vr-project:latest
     container_name: ar-server
-    ports:
-     - "8083:8080"
     entrypoint: >
       /bin/sh -c "
       sleep 15 &&
