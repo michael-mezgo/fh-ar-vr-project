@@ -1,9 +1,10 @@
-name: AR-VR Background
+name: AR-VR-Full-Backend
 services:
   mongo-container:
-    container_name: AR-VR_Database
+    container_name: ARMongoDB
     image: mongodb/mongodb-community-server:latest
     environment:
+        # provide your credentials here
         - MONGO_INITDB_ROOT_USERNAME=admin
         - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
@@ -11,14 +12,16 @@ services:
     volumes:
       - ar_mongo_data:/data/db
     command: mongod
+    networks:
+     arvr_network:
+        ipv4_address: 192.168.246.17
   minio:
     image: minio/minio:latest
-    container_name: picture_store
+    container_name: ARminio
     environment:
       - MINIO_ROOT_USER=minioadmin
       - MINIO_ROOT_PASSWORD=minioadmin123
     ports:
-      - "9000:9000"
       - "9001:9001"
     volumes:
       - ar_picture_data:/data
@@ -35,6 +38,32 @@ services:
       mc admin user svcacct add local ktoruser --access-key 'Zeq92ZKD0Zz71tone0r5' --secret-key 'uCbpoBP5nUQJKMim14VIT2ftDXCIN6bZ3u99oLZU'&
       wait
       "
+    # ChatGPT help
+    # Create networks and assign IPs
+    # https://chatgpt.com/share/6708238b-90fc-800d-b98f-b41567fe9a3a
+    networks:
+     arvr_network:
+        ipv4_address: 192.168.246.90
+  server-app:
+    image: ghcr.io/michael-mezgo/fh-ar-vr-project:latest
+    container_name: ar-server
+    ports:
+     - "8083:8080"
+    entrypoint: >
+      /bin/sh -c "
+      sleep 15 &&
+      java -jar /app/app.jar
+      "
+    networks:
+     arvr_network:
+        ipv4_address: 192.168.246.80
+networks:
+  arvr_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.246.0/24
+          gateway: 192.168.246.1
 volumes:
   ar_picture_data:
   ar_mongo_data:
