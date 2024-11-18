@@ -29,14 +29,15 @@ captureButton.addEventListener("click", () => {
     const context = canvas.getContext("2d");
     context.drawImage(cameraView, 0, 0, canvas.width, canvas.height);
 
+    preview.style.display = "block";
+    cameraView.style.display = "none";
+    uploadButton.disabled = false;
+    captureButton.style.display = "none";
+    retakeButton.style.display = "inline";
+
     canvas.toBlob((blob) => {
         photoBlob = blob;
         preview.src = URL.createObjectURL(photoBlob);
-        preview.style.display = "block";
-        cameraView.style.display = "none";
-        uploadButton.disabled = false;
-        captureButton.style.display = "none";
-        retakeButton.style.display = "inline";
     }, "image/jpeg");
 });
 
@@ -86,15 +87,18 @@ uploadButton.addEventListener("click", async () => {
     try {
         const base64String = await blobToBase64(photoBlob);
 
-        const formData = new FormData();
-        formData.append("photo", base64String);
-        formData.append("latitude", currentLat);
-        formData.append("longitude", currentLon);
-        formData.append("uniqueDeviceId", uniqueDeviceId);
-
-        const response = await fetch("", {
+        const photoData = {
+            userUuid: uniqueDeviceId,
+            longitude: currentLon,
+            latitude: currentLat,
+            picture: base64String
+        }
+        const response = await fetch("http://192.168.246.180:8080/uploadPicture", {
             method: "POST",
-            body: formData,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(photoData),
         });
 
         if (response.ok) {
