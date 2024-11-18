@@ -64,8 +64,6 @@ services:
       sleep 15 &&
       java -jar /app/app.jar
       "
-    ports:
-      - "8083:8080"
     networks:
      arvr_network:
         ipv4_address: 192.168.246.80

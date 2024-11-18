@@ -8,7 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Routing.uploadPicture(dataSourceImpl: PictureDataSource) {
-    post(path = "/uploadPicture") {
+    post(path = "/api/uploadPicture") {
         val uploadDate = call.receive<PictureUploadDto>()
 
         dataSourceImpl.insertPicture(uploadDate)
@@ -18,7 +18,7 @@ fun Routing.uploadPicture(dataSourceImpl: PictureDataSource) {
 }
 
 fun Routing.getAllPictures(dataSourceImpl: PictureDataSource) {
-    get(path = "/pictures") {
+    get(path = "/api/pictures") {
         val result = dataSourceImpl.getAllPictures()
 
         call.respondText(result.toString(), contentType = ContentType.Application.Json, status = HttpStatusCode.OK)
