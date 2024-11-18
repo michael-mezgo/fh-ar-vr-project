@@ -21,6 +21,6 @@ fun Routing.getAllPictures(dataSourceImpl: PictureDataSource) {
     get(path = "/api/pictures") {
         val result = dataSourceImpl.getAllPictures()
 
-        call.respondText(result.toString(), contentType = ContentType.Application.Json, status = HttpStatusCode.OK)
+        call.respond(result)
     }
 }
