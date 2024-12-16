@@ -2,6 +2,7 @@ package at.fhcampuswien.data
 
 import at.fhcampuswien.ConfigParameters
 import at.fhcampuswien.dto.ImageData
+import at.fhcampuswien.dto.PictureDownloadDto
 import at.fhcampuswien.dto.PictureUploadDto
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import io.minio.GetObjectArgs
@@ -37,8 +38,8 @@ class PictureDataSourceImpl(
             .insertOne(PictureDatabaseEntry(userUuid = picture.userUuid, longitude = picture.longitude, latitude = picture.latitude, pictureFileName = image.fileName))
     }
 
-    override suspend fun getAllPictures(): List<PictureUploadDto> {
-        val result = mutableListOf<PictureUploadDto>()
+    override suspend fun getAllPictures(): List<PictureDownloadDto> {
+        val result = mutableListOf<PictureDownloadDto>()
 
         val dbImages = mutableListOf<PictureDatabaseEntry>()
             db.getCollection<PictureDatabaseEntry>(ConfigParameters.PictureBucket.value)
@@ -63,11 +64,11 @@ class PictureDataSourceImpl(
 
             val bytes = stream.readAllBytes()
 
-            val dto = PictureUploadDto (
+            val dto = PictureDownloadDto (
                 userUuid = dbEntry.userUuid,
                 longitude = dbEntry.longitude,
                 latitude = dbEntry.latitude,
-                picture = "data:$type;base64,${pictureToBase64(bytes)}"
+                src = "data:$type;base64,${pictureToBase64(bytes)}"
             )
 
             result.add(dto)
