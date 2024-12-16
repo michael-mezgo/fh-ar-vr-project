@@ -12,7 +12,7 @@ let firstUpdate = true;
 async function loadImages() {
     try {
         // fetch images from API
-        const response = await fetch('https://run.mocky.io/v3/06220c5d-c598-4ba4-b0c6-047680b23ac8');
+        const response = await fetch('https://localhost:8080/api/pictures');
         const data = await response.json();
         imagesArray = data.images;
 
