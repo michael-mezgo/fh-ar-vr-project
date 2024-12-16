@@ -7,5 +7,6 @@ data class PictureDatabaseEntry(
     val userUuid: String,
     val longitude: Double,
     val latitude: Double,
-    val pictureFileName: String
+    val pictureFileName: String,
+    val caption: String
 )

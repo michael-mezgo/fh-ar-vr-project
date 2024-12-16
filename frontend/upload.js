@@ -9,11 +9,20 @@ let photoBlob = null;
 let currentLat = null;
 let currentLon = null;
 let uniqueDeviceId = localStorage.getItem("uniqueDeviceId");
+const captionContainer = document.getElementById("captionContainer");
+const captionInput = document.getElementById("captionInput");
+
 
 if (!uniqueDeviceId) {
     uniqueDeviceId = crypto.randomUUID();
     localStorage.setItem("uniqueDeviceId", uniqueDeviceId);
 }
+
+uploadButton.disabled = true;
+
+captionInput.addEventListener("input", () => {
+    uploadButton.disabled = captionInput.value.trim() === "";
+});
 
 async function setupCamera() {
     try {
@@ -31,6 +40,7 @@ captureButton.addEventListener("click", () => {
     canvas.height = cameraView.videoHeight;
     const context = canvas.getContext("2d");
     context.drawImage(cameraView, 0, 0, canvas.width, canvas.height);
+    captionContainer.style.display = "block";
 
     // cameraContainer.createElement(retakeButton)
 
@@ -56,6 +66,8 @@ retakeButton.addEventListener("click", () => {
     retakeButton.style.display = "none";
     uploadButton.style.display = "none"
     photoBlob = null;
+    captionContainer.style.display = "none";
+    captionInput.value = "";
 });
 
 
@@ -86,8 +98,16 @@ function blobToBase64(blob) {
 }
 
 uploadButton.addEventListener("click", async () => {
+    const captionText = captionInput.value.trim();
+    console.log(captionText);
+
     if (!photoBlob || currentLat === null || currentLon === null) {
         alert("Photo or location data is missing.");
+        return;
+    }
+
+    if (!captionText) {
+        alert("Caption cannot be empty. Please add a caption before uploading.");
         return;
     }
 
@@ -98,7 +118,8 @@ uploadButton.addEventListener("click", async () => {
             userUuid: uniqueDeviceId,
             longitude: currentLon,
             latitude: currentLat,
-            picture: base64String
+            picture: base64String,
+            caption: captionText,
         }
         const response = await fetch("https://" + window.location.hostname + ":" + window.location.port +"/api/uploadPicture", {
             method: "POST",
@@ -110,6 +131,8 @@ uploadButton.addEventListener("click", async () => {
 
         if (response.ok) {
             alert("Photo uploaded successfully!");
+            captionInput.value = "";
+            retakeButton.click();
         } else {
             alert("Failed to upload photo.");
         }

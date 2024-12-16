@@ -7,5 +7,6 @@ data class PictureUploadDto(
     val userUuid: String,
     val longitude: Double,
     val latitude: Double,
-    val picture: String
+    val picture: String,
+    val caption: String
 )
