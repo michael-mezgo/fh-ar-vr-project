@@ -68,7 +68,8 @@ class PictureDataSourceImpl(
                 userUuid = dbEntry.userUuid,
                 longitude = dbEntry.longitude,
                 latitude = dbEntry.latitude,
-                src = "data:$type;base64,${pictureToBase64(bytes)}"
+                src = "data:$type;base64,${pictureToBase64(bytes)}",
+                caption = dbEntry.caption
             )
 
             result.add(dto)

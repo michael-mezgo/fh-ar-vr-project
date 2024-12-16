@@ -113,3 +113,11 @@ button {
     color: #333;
     font-size: 128px;
 }
+
+#captionInput {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}

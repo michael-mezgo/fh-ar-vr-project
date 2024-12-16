@@ -83,6 +83,7 @@ function createGroupEntity(latitude, longitude, imagesGroup) {
         img.setAttribute("width", "7.5");
         img.setAttribute("height", "11");
         img.setAttribute("look-at", "[gps-new-camera]");
+
         // offset to avoid overlapping
         img.object3D.position.set((index % 2 === 0 ? -1 : 1) * (index + 1) * 4, 0, 0);
 
