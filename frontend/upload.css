@@ -96,11 +96,7 @@ button {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 1em;
-}
-
-button:disabled {
-    cursor: not-allowed;
+    margin-top: 0.5em;
 }
 
 @media (max-width: 768px) {

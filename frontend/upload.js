@@ -18,12 +18,6 @@ if (!uniqueDeviceId) {
     localStorage.setItem("uniqueDeviceId", uniqueDeviceId);
 }
 
-uploadButton.disabled = true;
-
-captionInput.addEventListener("input", () => {
-    uploadButton.disabled = captionInput.value.trim() === "";
-});
-
 async function setupCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -98,7 +92,7 @@ function blobToBase64(blob) {
 }
 
 uploadButton.addEventListener("click", async () => {
-    const captionText = captionInput.value.trim();
+    let captionText = captionInput.value.trim();
     console.log(captionText);
 
     if (!photoBlob || currentLat === null || currentLon === null) {
@@ -107,8 +101,7 @@ uploadButton.addEventListener("click", async () => {
     }
 
     if (!captionText) {
-        alert("Caption cannot be empty. Please add a caption before uploading.");
-        return;
+        captionText = " ";
     }
 
     try {
