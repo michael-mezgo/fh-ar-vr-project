@@ -75,7 +75,7 @@ button {
     left: 5px;
     font-size: 32px;
     background-color: transparent;
-    color: white;
+    color: black;
     text-decoration: none;
     border-radius: 5px;
     cursor: pointer;
@@ -89,7 +89,7 @@ button {
     left: 10px;
     font-size: 32px;
     background-color: transparent;
-    color: white;
+    color: black;
     text-decoration: none;
     border-radius: 5px;
     cursor: pointer;
