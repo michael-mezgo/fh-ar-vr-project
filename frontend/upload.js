@@ -18,6 +18,12 @@ if (!uniqueDeviceId) {
     localStorage.setItem("uniqueDeviceId", uniqueDeviceId);
 }
 
+uploadButton.disabled = true;
+
+captionInput.addEventListener("input", () => {
+    uploadButton.disabled = captionInput.value.trim() === "";
+});
+
 async function setupCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
