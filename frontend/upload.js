@@ -21,6 +21,7 @@ async function setupCamera() {
         cameraView.srcObject = stream;
     } catch (error) {
         console.error("Error accessing the camera:", error);
+        alert("Kamera konnte nicht gestartet werden. Bitte überprüfen Sie die Berechtigungen.");
     }
 }
 
