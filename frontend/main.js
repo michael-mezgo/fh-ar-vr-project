@@ -1,12 +1,12 @@
 function startExperience() {
     document.getElementById('welcomeScreen').style.display = 'none';
-    document.getElementById('aframeScene').style.display = 'block';
+    document.getElementById('aframe_div').style.display = 'block';
     loadImages().catch(error => console.error('Error in startExperience:', error));
     setInterval(updateUserPosition, 10000); // update user position every 10 seconds
 }
 
 let imagesArray = [];
-const MAX_DISTANCE = 30;
+const MAX_DISTANCE = 300;
 let firstUpdate = true;
 
 async function loadImages() {
