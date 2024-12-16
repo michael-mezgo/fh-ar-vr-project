@@ -2,7 +2,7 @@ function startExperience() {
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('aframe_div').style.display = 'block';
     loadImages().catch(error => console.error('Error in startExperience:', error));
-    setInterval(updateUserPosition, 10000); // update user position every 10 seconds
+    setInterval(updateUserPosition, 100000); // update user position every 100 seconds
 }
 
 let imagesArray = [];
