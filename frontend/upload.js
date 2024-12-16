@@ -100,7 +100,7 @@ uploadButton.addEventListener("click", async () => {
             latitude: currentLat,
             picture: base64String
         }
-        const response = await fetch("https://localhost:8080/api/uploadPicture", {
+        const response = await fetch("https://" + window.location.hostname + ":" + window.location.port +"/api/uploadPicture", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
