@@ -9,20 +9,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     min-height: 100vh;
     background-color: #f4f6f9;
     color: #333;
     overflow: hidden;
+    padding: 1em;
 }
 
-
 #cameraContainer {
-    width: 100%;
-    max-width: 550px;
+    width: 40%;
+    max-width: 90%;
     position: relative;
-    margin: 5px 5px;
-    top: 20px;
+    margin: 1em auto;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -30,7 +28,8 @@ body {
 
 #bottomContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5em;
 }
 
 #cameraView,
@@ -43,9 +42,7 @@ body {
 }
 
 button {
-    margin: 5px 5px;
-    padding: 5px 5px;
-    font-size: 16px;
+    font-size: 1rem;
     color: #fff;
     background-color: #3498db;
     border: none;
@@ -54,40 +51,23 @@ button {
     transition: background-color 0.3s ease;
 }
 
-#captureButton, #uploadButton, #retakeButton {
+#captureButton, #uploadButton {
     display: inline-block;
-    min-width: 140px;
+    width: auto;
     text-align: center;
+    font-size: 1rem;
 }
 
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
 }
 
-#retakeButton {
-    min-width: 0;
-    line-height: 1;
+#backButton, #retakeButton {
     position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 32px;
-    background-color: transparent;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000;
-    padding: 0px;
-}
-
-#backButton {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 32px;
+    top: 0.5em;
+    left: 0.5em;
+    font-size: 2.5rem;
     background-color: transparent;
     color: black;
     text-decoration: none;
@@ -97,31 +77,42 @@ button {
 }
 
 #captureButton {
-    min-width: 0;
-    line-height: 1;
-    position: relative;
-    top: 0px;
+    font-size: 10rem;
     background-color: transparent;
     color: #333;
-    font-size: 200px;
+    padding: 0.2em;
 }
 
 #uploadButton {
-    position: relative;
-    top: 0px;
+    font-size: 8rem;
     background-color: transparent;
     color: #333;
-    font-size: 128px;
 }
 
 #captionInput {
-    font-size: 16px;
-    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8em;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
 }
 
 button:disabled {
     cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    #cameraContainer {
+        width: 80%;
+        margin-top: 5em;
+    }
+}
+
+@media (max-width: 480px) {
+    #cameraContainer {
+        width: 90%;
+        margin-top: 5em;
+    }
 }
