@@ -68,9 +68,11 @@ button {
 }
 
 #retakeButton {
+    min-width: 0;
+    line-height: 1;
     position: fixed;
     top: 0px;
-    left: 10px;
+    left: 5px;
     font-size: 32px;
     background-color: transparent;
     color: white;
@@ -78,6 +80,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     z-index: 1000;
+    padding: 0px;
 }
 
 #backButton {
@@ -94,11 +97,13 @@ button {
 }
 
 #captureButton {
+    min-width: 0;
+    line-height: 1;
     position: relative;
     top: 0px;
     background-color: transparent;
     color: #333;
-    font-size: 128px;
+    font-size: 256px;
 }
 
 #uploadButton {

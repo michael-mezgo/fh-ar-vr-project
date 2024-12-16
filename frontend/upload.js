@@ -4,6 +4,7 @@ const captureButton = document.getElementById("captureButton");
 const uploadButton = document.getElementById("uploadButton");
 const retakeButton = document.getElementById("retakeButton");
 const preview = document.getElementById("preview");
+const cameraContainer = document.getElementById("cameraContainer")
 let photoBlob = null;
 let currentLat = null;
 let currentLon = null;
@@ -30,12 +31,14 @@ captureButton.addEventListener("click", () => {
     const context = canvas.getContext("2d");
     context.drawImage(cameraView, 0, 0, canvas.width, canvas.height);
 
+    // cameraContainer.createElement(retakeButton)
+
     preview.style.display = "block";
     cameraView.style.display = "none";
-    uploadButton.disabled = false;
+    backButton.style.display = "none";
+    uploadButton.style.display = "inline";
     captureButton.style.display = "none";
     retakeButton.style.display = "inline";
-    backButton.style.display = "none";
 
     canvas.toBlob((blob) => {
         photoBlob = blob;
