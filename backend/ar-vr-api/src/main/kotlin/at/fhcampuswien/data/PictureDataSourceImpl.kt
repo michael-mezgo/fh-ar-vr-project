@@ -35,7 +35,7 @@ class PictureDataSourceImpl(
 
         db
             .getCollection<PictureDatabaseEntry>(ConfigParameters.PictureBucket.value)
-            .insertOne(PictureDatabaseEntry(userUuid = picture.userUuid, longitude = picture.longitude, latitude = picture.latitude, pictureFileName = image.fileName))
+            .insertOne(PictureDatabaseEntry(userUuid = picture.userUuid, longitude = picture.longitude, latitude = picture.latitude, pictureFileName = image.fileName, caption = picture.caption))
     }
 
     override suspend fun getAllPictures(): List<PictureDownloadDto> {
