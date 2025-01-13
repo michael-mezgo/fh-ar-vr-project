@@ -19,7 +19,7 @@ jobs:
     - name: Build Docker image
       run: |
         cd backend/ar-vr-api
-        docker build -t ghcr.io/michael-mezgo/fh-ar-vr-project:latest .
+        docker buildx build --platform linux/arm64 -t ghcr.io/michael-mezgo/fh-ar-vr-project:latest .
 
     - name: Push Docker image to GitHub Packages
       run: |
