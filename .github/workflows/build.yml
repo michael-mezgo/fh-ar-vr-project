@@ -13,15 +13,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GIT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    - name: Build Docker image
-      run: |
-        cd backend/ar-vr-api
-        docker buildx build --platform linux/arm64/v8 -t ghcr.io/michael-mezgo/fh-ar-vr-project:latest .
-
-    - name: Push Docker image to GitHub Packages
-      run: |
-        cd backend/ar-vr-api
-        docker push ghcr.io/michael-mezgo/fh-ar-vr-project:latest
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: backend/ar-vr-api  # Path to the build context
+        file: backend/ar-vr-api/Dockerfile  # Path to the Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true  # Push to the registry after building
+        tags: ghcr.io/michael-mezgo/fh-ar-vr-project:latest # Update with your image registry and tag
