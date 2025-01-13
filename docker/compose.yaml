@@ -14,7 +14,7 @@ services:
         ipv4_address: 192.168.246.180
   mongo-container:
     container_name: ARMongoDB
-    image: mongodb/mongodb-community-server:latest
+    image: mongo:3.6.23
     environment:
         # provide your credentials here
         - MONGO_INITDB_ROOT_USERNAME=admin
